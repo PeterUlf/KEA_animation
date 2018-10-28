@@ -1,0 +1,220 @@
+.blur {
+    filter: blur(5px);
+}
+
+
+#energy {
+    position: absolute;
+    right: 12vw;
+    top: 9vw;
+
+}
+
+#thermometer_udslag {
+    position: absolute;
+    bottom: -35vw;
+    left: 1.3vw;
+    width: 5vw;
+    height: 32vw;
+    background: hsla(136, 49%, 56%);
+    transform-origin: bottom left;
+}
+
+#thermometer_white {
+    position: absolute;
+    width: 4vw;
+    top: 3.5vw;
+    left: 2vw;
+    height: 33vw;
+    background-color: white;
+}
+
+
+#thermometer {
+    position: absolute;
+    width: 10vw;
+    height: 38VW;
+    background-image: url(grafik/termometer.svg);
+}
+
+
+#game_background {
+    position: absolute;
+    width: 100vw;
+    height: 56.25vw;
+    background-image: url(grafik/taeppe.svg);
+}
+
+
+.groentsag {
+    background-image: url(grafik/brockoli.svg);
+    background-repeat: no-repeat;
+}
+
+.koed {
+    background-image: url(grafik/boef.svg);
+    background-repeat: no-repeat;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+
+.mad {
+    position: absolute;
+    /*    background: blue;*/
+
+}
+
+
+#mad1,
+#mad2,
+#mad3,
+#mad4 {
+    width: 6vw;
+    height: 5vw;
+    top: 15vw;
+
+}
+
+#mad5,
+#mad6 {
+    width: 7vw;
+    height: 6vw;
+    top: 24vw;
+}
+
+
+#mad7,
+#mad8,
+#mad9,
+#mad10 {
+    width: 8vw;
+    height: 7vw;
+    top: 36vw;
+
+}
+
+#mad1 {
+    left: 28vw;
+}
+
+#mad2 {
+    left: 41vw;
+}
+
+#mad3 {
+    left: 53vw;
+}
+
+#mad4 {
+    left: 67vw;
+}
+
+#mad5 {
+    left: 22vw;
+}
+
+#mad6 {
+    left: 70vw;
+}
+
+#mad7 {
+    left: 21vw;
+}
+
+#mad8 {
+    left: 37vw;
+}
+
+#mad9 {
+    left: 53vw;
+}
+
+#mad10 {
+    left: 69vw;
+}
+
+
+
+#points {
+    position: absolute;
+    left: 5vw;
+    top: 2vw;
+
+
+    font-size: 1rem;
+    color: white;
+}
+
+#start {
+    position: absolute;
+    width: 100vw;
+    height: 56.25vw;
+    background-image: url(grafik/start.svg);
+    background-size: contain;
+}
+
+.hide {
+    /*    display: none;*/
+    visibility: hidden;
+}
+
+#gameover {
+    position: absolute;
+    width: 100%;
+    height: 56.25vw;
+    ;
+    /*    background-color: rgba(114, 114, 114, 0.7);*/
+
+}
+
+
+#gameover_screen {
+    margin: 0 auto;
+    position: relative;
+    width: 60vw;
+    height: 45vw;
+    background-color: rgba(0, 0, 0, 0.82);
+
+    top: 5vw;
+    border-radius: 2vw;
+    color: white;
+
+    background-image: url(grafik/replay.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10vw 10vw;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+#gameover h1 {
+    font-family: 'Dosis', sans-serif;
+    text-transform: uppercase;
+    font-size: 4rem;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+#screen {
+    position: relative;
+    width: 100vw;
+    height: 56.25;
+}
+
+#game {
+    background-color: rgba(0, 0, 0, 0.53);
+}
