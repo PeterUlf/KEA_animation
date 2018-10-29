@@ -1,21 +1,34 @@
 window.addEventListener("load", sidenVises);
 
 var timeLeftInit = 1000;
-var timeLeft = timeLeftInit;
 let antalAallerkener = 10;
-var score = 0;
-var scoreMax = 2;
+var scoreMax = 50;
 let antalPrutter = 4;
-let gameRunning = "igang";
 let pointGroentsag = 1;
 let pointKoed = -3;
 let hiScore = 0;
+let mySettingEffektSound = true;
+let mySettingMusic = true;
+const audio_start = document.querySelector("#musik");
+const audio_slut = document.querySelector("#musikSlut");
+musikSlut
+
+
+
+var timeLeft;
+var score;
+let gameRunning;
+
 
 function sidenVises() {
     console.log("All resources finished loading!");
+    //    console.log("mySettingMusic er nu " + mySettingMusic)
     document.getElementById("start").addEventListener("click", myStart);
     document.getElementById("gameover").addEventListener("click", myReplay);
     document.getElementById("settings").addEventListener("click", mySetting);
+
+    document.getElementById("setting_effekt_sound").addEventListener("click", mySettingEffektSoundFc);
+    document.getElementById("setting_music").addEventListener("click", mySettingMusicFc);
     //    document.querySelector("#start").classList.remove("hide");
 
 
@@ -30,27 +43,30 @@ function sidenVises() {
     document.querySelector("#mad9").className = "mad";
     document.querySelector("#mad10").className = "mad";
 
-    //    document.querySelector(".mad").className = "mad";
+
 
 }
 
 function myStart() {
-    timeLeftInit = 1000;
     timeLeft = timeLeftInit;
-    antalAallerkener = 10;
     score = 0;
-    scoreMax = 2;
-    antalPrutter = 4;
     gameRunning = "igang";
-    pointGroentsag = 1;
-    pointKoed = -3;
 
     // console.log("functionen myStart");
     startSpil = setTimeout(myStartSpil, 2000);
-    audio_start = document.getElementById("musik");
-    audio_start.volume = 0.3;
-    audio_start.currentTime = 0;
-    audio_start.play();
+
+
+    if (mySettingMusic == true) {
+        console.log("mySettingMusic er nu " + mySettingMusic);
+
+
+        //        audio_start = document.getElementById("musik");
+
+        audio_start.volume = 0.3;
+        audio_start.currentTime = 0;
+        audio_start.play();
+    }
+
 
     var start = document.getElementById("start");
     start.classList.add("hide");
@@ -66,7 +82,7 @@ function myStart() {
     document.querySelector("#mad9").addEventListener('click', foodClick);
     document.querySelector("#mad10").addEventListener('click', foodClick);
 
-    document.querySelector("#score").innerHTML = "Point " + score;
+    document.querySelector("#score").innerHTML = "Score: " + score;
     document.querySelector("#hi_score").innerHTML = "Hi-score " + hiScore;
 }
 
@@ -88,7 +104,7 @@ function foodClick() {
 }
 
 function grow() {
-    document.querySelector("#score").innerHTML = "Point " + score;
+    document.querySelector("#score").innerHTML = "Score " + score;
     document.querySelector("#hi_score").innerHTML = "Hi-score " + hiScore;
     document.querySelector("#point").className = "";
     window.requestAnimationFrame(function (time) {
@@ -100,6 +116,7 @@ function grow() {
 }
 
 function myGroentsagRemove() {
+    console.log("mySettingMusic function i grøntsag remove" + mySettingMusic);
     score = score + pointGroentsag;
     if (hiScore <= score) {
         hiScore = score;
@@ -208,15 +225,23 @@ function removeMad() {
 }
 
 function fade() {
-    // console.log("fadefunctionen");
+    console.log("fadefunctionen");
+
+    console.log("mySettingMusic function " + mySettingMusic);
+
+
     if (audio_start.volume > 0.1) {
         audio_start.volume -= 0.1;
         setTimeout(fade, 100);
+
     } else {
+
         audio_start.pause();
         let audio_slut = document.getElementById("musikSlut");
         audio_slut.volume = 0.2;
         audio_slut.play();
+
+
 
 
     }
@@ -231,11 +256,13 @@ function myRandom(num) {
 }
 
 function effekt(lyden) {
-    let audio = document.getElementById(lyden);
-    audio.volume = 0.5;
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
+    if (mySettingEffektSound == true) {
+        let audio = document.getElementById(lyden);
+        audio.volume = 0.5;
+        audio.pause();
+        audio.currentTime = 0;
+        audio.play();
+    }
 }
 
 
@@ -252,6 +279,8 @@ function updateTimeLeftFc() {
 }
 
 function myGameover() {
+
+    console.log("mySettingMusic function i gameover" + mySettingMusic);
     console.log("gameover med værdien " + gameRunning);
     hiScore = score;
 
@@ -259,14 +288,17 @@ function myGameover() {
         document.querySelector("#gameover").classList.remove("hide");
         document.querySelector("#gameover_screen").innerHTML = "<h1>Tillykke</h1><p>" + score + " point <br>...." + "men man prutter også af kål </p> ";
         document.querySelector("#gameover_screen").style.fontSize = "2rem";
-
-        fade();
+        if (mySettingMusic == true) {
+            fade();
+        }
     } else if (gameRunning == "tabt") {
 
         document.querySelector("#gameover").classList.remove("hide");
         document.querySelector("#gameover_screen").innerHTML = "<h1>Game over</h1><p>Du fik " + score + " point</p>";
         //    gameRunning = false;
-        fade();
+        if (mySettingMusic == true) {
+            fade();
+        }
     }
 }
 
@@ -290,5 +322,25 @@ function myEndFunction() {
 function mySetting() {
     console.log("setting function ");
     document.querySelector("#settings_screen").classList.toggle('hide');
+
+}
+
+function mySettingEffektSoundFc() {
+    console.log("mySettingEffektSound function ");
+    mySettingEffektSound = !mySettingEffektSound;
+}
+
+
+function mySettingMusicFc() {
+    console.log("mySettingMusic function " + mySettingMusic);
+    mySettingMusic = !mySettingMusic;
+
+
+    if (mySettingMusic == false) {
+
+        audio_start.pause();
+    } else {
+        audio_start.play();
+    }
 
 }
