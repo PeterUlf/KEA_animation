@@ -23,10 +23,10 @@
                 <div id="mad2" class="mad"></div>
                 <div id="mad3" class="mad"></div>
                 <div id="mad4" class="mad"></div>
-                <div id="mad5" class="mad koed"></div>
-                <div id="mad6" class="mad groentsag"></div>
+                <div id="mad5" class="mad"></div>
+                <div id="mad6" class="mad"></div>
                 <div id="mad7" class="mad"></div>
-                <div id="mad8" class="mad groentsag"></div>
+                <div id="mad8" class="mad"></div>
                 <div id="mad9" class="mad"></div>
                 <div id="mad10" class="mad"></div>
                 <div id="ko_container">
@@ -36,7 +36,8 @@
                 </div>
             </div>
             <div id="game_ui">
-                <div id="points">Point 5</div>
+                <div id="score"></div>
+                <div id="point" class=""></div>
                 <div id="energy">
                     <div id="thermometer_white"></div>
                     <div id="thermometer_udslag"></div>
@@ -49,21 +50,59 @@
 
 
 
-        <div id="start" class="hide"></div>
-        <div id="settings"></div>
+        <div id="start" class=""></div>
+        <div id="settings">
+
+
+        </div>
+        <div id="settings_screen" class="hide">
+        </div>
+
+
         <div id="gameover" class="hide">
             <div id="gameover_screen" class="">
-                <h1>Game over</h1>
-                <p>Her kommer extra tekst</p>
+
             </div>
         </div>
         <div id="levelcomplete"></div>
     </div>
 
 
+    <audio id="musik">
+        <source src="lyde/musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="musikSlut">
+        <source src="lyde/musik_slut.mp3" type="audio/mpeg">
+    </audio>
 
 
-    <script src="script.css"></script>
+
+    <audio id="haps">
+        <source src="lyde/haps1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="hapshaps">
+        <source src="lyde/hapshaps.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="prut1">
+        <source src="lyde/prut1.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="prut2">
+        <source src="lyde/prut2.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="prut3">
+        <source src="lyde/prut3.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="prut4">
+        <source src="lyde/prut4.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <script src="script.js"></script>
 </body>
 
 </html>
