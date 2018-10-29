@@ -1,5 +1,16 @@
 /*Grundindstillinger for placering på  scenen*/
 
+* {
+    -webkit-user-select: none;
+    /* Safari 3.1+ */
+    -moz-user-select: none;
+    /* Firefox 2+ */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Standard syntax */
+}
+
 html {
     font-size: 2vw;
 }
@@ -129,6 +140,14 @@ body {
     color: white;
 }
 
+#hi_score {
+    position: absolute;
+    right: 5vw;
+    top: 2vw;
+    font-size: 1rem;
+    color: white;
+}
+
 #point {
     position: absolute;
     left: 50vw;
@@ -178,15 +197,32 @@ body {
     border-radius: 2vw;
     color: white;
 
-    background-image: url(grafik/replay.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 10vw 10vw;
+
 
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+#replay {
+    position: absolute;
+    left: 45vw;
+    top: 20vw;
+    margin: 0 auto;
+    width: 10vw;
+    height: 10vw;
+    background-image: url(grafik/replay.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10vw 10vw;
+}
+
+.roter {
+    animation-name: roter_kf;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
 }
 
 
@@ -397,5 +433,12 @@ p {
     100% {
         transform: scale(5);
         opacity: 0;
+    }
+}
+
+@keyframes roter_kf {
+
+    100% {
+        transform: rotate(360deg);
     }
 }

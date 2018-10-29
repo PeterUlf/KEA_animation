@@ -4,19 +4,20 @@ var timeLeftInit = 1000;
 var timeLeft = timeLeftInit;
 let antalAallerkener = 10;
 var score = 0;
-var scoreMax = 5;
+var scoreMax = 2;
 let antalPrutter = 4;
 let gameRunning = "igang";
 let pointGroentsag = 1;
 let pointKoed = -3;
+let hiScore = 0;
 
 function sidenVises() {
     console.log("All resources finished loading!");
     document.getElementById("start").addEventListener("click", myStart);
     document.getElementById("gameover").addEventListener("click", myReplay);
     document.getElementById("settings").addEventListener("click", mySetting);
-    document.querySelector("#start").classList.remove("hide");
-    document.querySelector("#gameover").classList.add("hide");
+    //    document.querySelector("#start").classList.remove("hide");
+
 
     document.querySelector("#mad1").className = "mad";
     document.querySelector("#mad2").className = "mad";
@@ -38,7 +39,7 @@ function myStart() {
     timeLeft = timeLeftInit;
     antalAallerkener = 10;
     score = 0;
-    scoreMax = 5;
+    scoreMax = 2;
     antalPrutter = 4;
     gameRunning = "igang";
     pointGroentsag = 1;
@@ -48,6 +49,7 @@ function myStart() {
     startSpil = setTimeout(myStartSpil, 2000);
     audio_start = document.getElementById("musik");
     audio_start.volume = 0.3;
+    audio_start.currentTime = 0;
     audio_start.play();
 
     var start = document.getElementById("start");
@@ -65,6 +67,7 @@ function myStart() {
     document.querySelector("#mad10").addEventListener('click', foodClick);
 
     document.querySelector("#score").innerHTML = "Point " + score;
+    document.querySelector("#hi_score").innerHTML = "Hi-score " + hiScore;
 }
 
 function foodClick() {
@@ -86,6 +89,7 @@ function foodClick() {
 
 function grow() {
     document.querySelector("#score").innerHTML = "Point " + score;
+    document.querySelector("#hi_score").innerHTML = "Hi-score " + hiScore;
     document.querySelector("#point").className = "";
     window.requestAnimationFrame(function (time) {
 
@@ -97,6 +101,9 @@ function grow() {
 
 function myGroentsagRemove() {
     score = score + pointGroentsag;
+    if (hiScore <= score) {
+        hiScore = score;
+    }
     console.log("myGroentsagRemove kører point er " + score);
     document.getElementById("point").innerHTML = "+" + pointGroentsag;
     effekt("hapshaps");
@@ -246,6 +253,7 @@ function updateTimeLeftFc() {
 
 function myGameover() {
     console.log("gameover med værdien " + gameRunning);
+    hiScore = score;
 
     if (gameRunning == "vundet") {
         document.querySelector("#gameover").classList.remove("hide");
@@ -264,7 +272,19 @@ function myGameover() {
 
 function myReplay() {
     console.log("replay function ");
+
+    document.querySelector("#replay").classList.add("roter");
+
+
+    document.querySelector("#replay").addEventListener("animationend", myEndFunction);
+
+}
+
+function myEndFunction() {
+    document.querySelector("#replay").classList.remove("roter");
+    document.querySelector("#gameover").classList.add("hide");
     sidenVises();
+    myStart();
 }
 
 function mySetting() {
