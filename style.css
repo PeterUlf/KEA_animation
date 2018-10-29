@@ -1,60 +1,5 @@
-.blur {
-    filter: blur(5px);
-}
+/*Grundindstillinger for placering på  scenen*/
 
-
-#energy {
-    position: absolute;
-    right: 12vw;
-    top: 9vw;
-
-}
-
-#thermometer_udslag {
-    position: absolute;
-    bottom: -35vw;
-    left: 1.3vw;
-    width: 5vw;
-    height: 32vw;
-    background: hsla(136, 49%, 56%);
-    transform-origin: bottom left;
-}
-
-#thermometer_white {
-    position: absolute;
-    width: 4vw;
-    top: 3.5vw;
-    left: 2vw;
-    height: 33vw;
-    background-color: white;
-}
-
-
-#thermometer {
-    position: absolute;
-    width: 10vw;
-    height: 38VW;
-    background-image: url(grafik/termometer.svg);
-}
-
-
-#game_background {
-    position: absolute;
-    width: 100vw;
-    height: 56.25vw;
-    background-image: url(grafik/taeppe.svg);
-}
-
-
-.groentsag {
-    background-image: url(grafik/brockoli.svg);
-    background-repeat: no-repeat;
-}
-
-.koed {
-    background-image: url(grafik/boef.svg);
-    background-repeat: no-repeat;
-}
 
 body {
     margin: 0;
@@ -63,6 +8,12 @@ body {
 
 }
 
+#game_background {
+    position: absolute;
+    width: 100vw;
+    height: 56.25vw;
+    background-image: url(grafik/taeppe.svg);
+}
 
 
 .mad {
@@ -160,10 +111,7 @@ body {
     background-size: contain;
 }
 
-.hide {
-    /*    display: none;*/
-    visibility: hidden;
-}
+
 
 #gameover {
     position: absolute;
@@ -217,4 +165,180 @@ p {
 
 #game {
     background-color: rgba(0, 0, 0, 0.53);
+}
+
+/*Grundindstillinger for placering på  scenen SLUT*/
+
+/*ENERGI*/
+#energy {
+    position: absolute;
+    right: 12vw;
+    top: 9vw;
+
+}
+
+#thermometer_udslag {
+    position: absolute;
+    bottom: -35vw;
+    left: 1.3vw;
+    width: 5vw;
+    height: 32vw;
+    background: hsla(136, 49%, 56%);
+    transform-origin: bottom left;
+}
+
+#thermometer_white {
+    position: absolute;
+    width: 4vw;
+    top: 3.5vw;
+    left: 2vw;
+    height: 33vw;
+    background-color: white;
+}
+
+
+#thermometer {
+    position: absolute;
+    width: 10vw;
+    height: 38VW;
+    background-image: url(grafik/termometer.svg);
+}
+
+/*ENERGI SLUT*/
+
+/*MAD*/
+
+.groentsag {
+    background-image: url(grafik/brockoli.svg);
+    background-repeat: no-repeat;
+}
+
+.koed {
+    background-image: url(grafik/boef.svg);
+    background-repeat: no-repeat;
+}
+
+
+
+/*MAD SLUT*/
+
+
+
+
+/*KO*/
+
+
+#ko {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(grafik/ko.svg);
+    width: 15vw;
+    height: 15vw;
+
+
+}
+
+#ko_container {
+    position: absolute;
+    width: 10vw;
+    height: 10vw;
+    top: 15vw;
+    left: 0vw;
+
+}
+
+
+#hale {
+    position: absolute;
+    top: 3vw;
+    left: 9.1vw;
+    z-index: 1;
+    width: 10vw;
+    height: 8.8vw;
+    background-size: 400% 100%;
+    background-image: url(grafik/hale.svg);
+    transform-origin: top left;
+
+}
+
+.hale_swing {
+    animation-name: hale_kf;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+}
+
+#prut {
+    position: absolute;
+    top: -1vw;
+    left: 9vw;
+    width: 10vw;
+    height: 8.8vw;
+    background-size: 500% 100%;
+    background-image: url(grafik/prut.svg);
+}
+
+
+/*KO SLUT*/
+
+
+
+.blur {
+    filter: blur(5px);
+}
+
+.hide {
+    /*    display: none;*/
+    visibility: hidden;
+}
+
+
+
+.prut_action {
+    animation-name: prut_kf;
+    animation-timing-function: steps(5);
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
+
+.fade_in {
+    animation-name: fade_in_kf;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes fade_in_kf {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/*Animationer */
+
+@keyframes hale_kf {
+    0% {
+        transform: rotate(10deg);
+        display: block;
+    }
+
+    100% {
+        transform: rotate(-15deg);
+    }
+}
+
+@keyframes prut_kf {
+    0% {
+        background-position: 0;
+    }
+
+    100% {
+        background-position: -500% 0;
+    }
 }
