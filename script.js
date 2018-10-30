@@ -23,12 +23,19 @@ let gameRunning;
 function sidenVises() {
     console.log("All resources finished loading!");
     //    console.log("mySettingMusic er nu " + mySettingMusic)
-    document.getElementById("start").addEventListener("click", myStart);
-    document.getElementById("gameover").addEventListener("click", myReplay);
-    document.getElementById("settings").addEventListener("click", mySetting);
+    //    document.getElementById("start").addEventListener("click", myStart);
+    document.querySelector("#start").addEventListener("click", myStart);
+    //    document.getElementById("gameover").addEventListener("click", myReplay);
+    document.querySelector("#gameover").addEventListener("click", myReplay);
 
-    document.getElementById("setting_effekt_sound").addEventListener("click", mySettingEffektSoundFc);
-    document.getElementById("setting_music").addEventListener("click", mySettingMusicFc);
+    //    document.getElementById("settings").addEventListener("click", mySetting);
+    document.querySelector("#settings").addEventListener("click", mySetting);
+
+    //    document.getElementById("setting_effekt_sound").addEventListener("click", mySettingEffektSoundFc);
+    document.querySelector("#setting_effekt_sound").addEventListener("click", mySettingEffektSoundFc);
+
+    document.querySelector("#setting_music").addEventListener("click", mySettingMusicFc);
+    //    document.getElementById("setting_music").addEventListener("click", mySettingMusicFc);
     //    document.querySelector("#start").classList.remove("hide");
 
 
@@ -67,9 +74,7 @@ function myStart() {
         audio_start.play();
     }
 
-
-    var start = document.getElementById("start");
-    start.classList.add("hide");
+    document.querySelector("#start").classList.add("hide");
 
     document.querySelector("#mad1").addEventListener('click', foodClick);
     document.querySelector("#mad2").addEventListener('click', foodClick);
@@ -122,7 +127,8 @@ function myGroentsagRemove() {
         hiScore = score;
     }
     console.log("myGroentsagRemove kører point er " + score);
-    document.getElementById("point").innerHTML = "+" + pointGroentsag;
+    //    document.getElementById("point").innerHTML = "+" + pointGroentsag;
+    document.querySelector("#point").innerHTML = "+" + pointGroentsag;
     effekt("hapshaps");
 
     timeLeft = timeLeft + 100;
@@ -142,7 +148,7 @@ function myGroentsagRemove() {
 
 function myKoedRemove() {
     console.log("koedRemove kører");
-    document.getElementById("point").innerHTML = pointKoed;
+    document.querySelector("#point").innerHTML = pointKoed;
     document.querySelector("#prut").className = "";
     window.requestAnimationFrame(function (time) {
 
@@ -237,7 +243,7 @@ function fade() {
     } else {
 
         audio_start.pause();
-        let audio_slut = document.getElementById("musikSlut");
+        //        let audio_slut = document.getElementById("musikSlut");
         audio_slut.volume = 0.2;
         audio_slut.play();
 
@@ -272,8 +278,10 @@ function updateTimeLeftFc() {
     procentLeft = 1 - ((timeLeftInit - timeLeft) / timeLeftInit);
     lifeBarHeight = procentLeft * 30 + "vw";
     color = "hsl(" + (procentLeft * 126) + ", 49% , 50%)";
-    document.getElementById("thermometer_udslag").style.height = lifeBarHeight;
-    document.getElementById("thermometer_udslag").style.background = color;
+    document.querySelector("#thermometer_udslag").style.height = lifeBarHeight;
+    //    document.getElementById("thermometer_udslag")
+    //    document.getElementById("thermometer_udslag").style.background = color;
+    document.querySelector("#thermometer_udslag").style.background = color;
 
 
 }
