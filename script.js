@@ -11,9 +11,7 @@ let mySettingEffektSound = true;
 let mySettingMusic = true;
 const audio_start = document.querySelector("#musik");
 const audio_slut = document.querySelector("#musikSlut");
-musikSlut
-
-
+let removeMadSpeed;
 
 var timeLeft;
 var score;
@@ -22,21 +20,15 @@ let gameRunning;
 
 function sidenVises() {
     console.log("All resources finished loading!");
-    //    console.log("mySettingMusic er nu " + mySettingMusic)
-    //    document.getElementById("start").addEventListener("click", myStart);
+
+
+
     document.querySelector("#start").addEventListener("click", myStart);
-    //    document.getElementById("gameover").addEventListener("click", myReplay);
     document.querySelector("#gameover").addEventListener("click", myReplay);
-
-    //    document.getElementById("settings").addEventListener("click", mySetting);
     document.querySelector("#settings").addEventListener("click", mySetting);
-
-    //    document.getElementById("setting_effekt_sound").addEventListener("click", mySettingEffektSoundFc);
     document.querySelector("#setting_effekt_sound").addEventListener("click", mySettingEffektSoundFc);
 
     document.querySelector("#setting_music").addEventListener("click", mySettingMusicFc);
-    //    document.getElementById("setting_music").addEventListener("click", mySettingMusicFc);
-    //    document.querySelector("#start").classList.remove("hide");
 
 
     document.querySelector("#mad1").className = "mad";
@@ -50,26 +42,35 @@ function sidenVises() {
     document.querySelector("#mad9").className = "mad";
     document.querySelector("#mad10").className = "mad";
 
+    if (navigator.userAgent.indexOf('iPhone') != -1) {
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+    }
 
-
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+    startVariable();
 }
 
-function myStart() {
+function startVariable() {
     timeLeft = timeLeftInit;
     score = 0;
     gameRunning = "igang";
+    audio_start.volume = 0.3;
+    audio_slut.volume = 0.3;
+    removeMadSpeed = 1000;
+}
 
+function myStart() {
     // console.log("functionen myStart");
-    startSpil = setTimeout(myStartSpil, 2000);
 
+
+    startSpil = setTimeout(myStartSpil, 2000);
 
     if (mySettingMusic == true) {
         console.log("mySettingMusic er nu " + mySettingMusic);
-
-
-        //        audio_start = document.getElementById("musik");
-
-        audio_start.volume = 0.3;
         audio_start.currentTime = 0;
         audio_start.play();
     }
@@ -93,10 +94,11 @@ function myStart() {
 
 function foodClick() {
 
-
     if (this.classList.contains("groentsag")) {
         this.classList.remove("groentsag");
-        myGroentsagRemove();
+        this.classList.add("groentsag_remove");
+        this.addEventListener("animationend", myGroentsagRemove);
+
         grow();
     }
 
@@ -122,12 +124,12 @@ function grow() {
 
 function myGroentsagRemove() {
     console.log("mySettingMusic function i grøntsag remove" + mySettingMusic);
+    this.classList.remove("groentsag_remove");
     score = score + pointGroentsag;
     if (hiScore <= score) {
         hiScore = score;
     }
     console.log("myGroentsagRemove kører point er " + score);
-    //    document.getElementById("point").innerHTML = "+" + pointGroentsag;
     document.querySelector("#point").innerHTML = "+" + pointGroentsag;
     effekt("hapshaps");
 
@@ -139,10 +141,7 @@ function myGroentsagRemove() {
     if (score >= scoreMax) {
         gameRunning = "vundet";
         myGameover();
-
-
     }
-    //    document.querySelector("#score").innerHTML = "Point " + point;
     updateTimeLeftFc();
 }
 
@@ -159,7 +158,6 @@ function myKoedRemove() {
 
     //nulstiller animationen gentegner animationen
 
-
     let prutNr = 'prut' + myRandom(antalPrutter);
     effekt(prutNr);
     score = score + pointKoed;
@@ -167,7 +165,6 @@ function myKoedRemove() {
     if (timeLeft > timeLeftInit) {
         timeLeft = timeLeftInit;
     }
-    //    document.querySelector("#score").innerHTML = "Point " + point;
     updateTimeLeftFc();
 
 }
@@ -225,31 +222,24 @@ function removeMad() {
     if (element.classList.contains('koed'))
         element.classList.toggle('koed');
     if (gameRunning == "igang") {
-        setTimeout(removeMad, 1000);
+        setTimeout(removeMad, removeMadSpeed);
+        console.log("removemadspeed er " + removeMadSpeed)
+        if (removeMadSpeed > 100) {
+            removeMadSpeed = removeMadSpeed - 10;
+        }
     }
+
 
 }
 
 function fade() {
     console.log("fadefunctionen");
-
-    console.log("mySettingMusic function " + mySettingMusic);
-
-
     if (audio_start.volume > 0.1) {
         audio_start.volume -= 0.1;
         setTimeout(fade, 100);
-
     } else {
-
         audio_start.pause();
-        //        let audio_slut = document.getElementById("musikSlut");
-        audio_slut.volume = 0.2;
         audio_slut.play();
-
-
-
-
     }
 }
 
@@ -274,13 +264,10 @@ function effekt(lyden) {
 
 function updateTimeLeftFc() {
     //    console.log("updateTimeLeftFc");
-
     procentLeft = 1 - ((timeLeftInit - timeLeft) / timeLeftInit);
     lifeBarHeight = procentLeft * 30 + "vw";
     color = "hsl(" + (procentLeft * 126) + ", 49% , 50%)";
     document.querySelector("#thermometer_udslag").style.height = lifeBarHeight;
-    //    document.getElementById("thermometer_udslag")
-    //    document.getElementById("thermometer_udslag").style.background = color;
     document.querySelector("#thermometer_udslag").style.background = color;
 
 
@@ -331,24 +318,65 @@ function mySetting() {
     console.log("setting function ");
     document.querySelector("#settings_screen").classList.toggle('hide');
 
+    if (gameRunning != "pause") {
+        gameRunningFoerPause = gameRunning;
+        gameRunning = "pause";
+    } else {
+        gameRunning = gameRunningFoerPause;
+        myStart();
+    }
+
 }
 
 function mySettingEffektSoundFc() {
-    console.log("mySettingEffektSound function ");
+    console.log("mySettingEffektSound function værdi er ");
     mySettingEffektSound = !mySettingEffektSound;
+
+    if (mySettingEffektSound == false) {
+        document.querySelector("#sfx").className = "on_off";
+        document.querySelector("#sfx").addEventListener("animationend", sfxOff);
+    } else {
+        document.querySelector("#sfx").className = "off_on";
+        document.querySelector("#sfx").addEventListener("animationend", sfxOn);
+    }
 }
 
+function sfxOff() {
+    console.log("sfxOff function værdi er " + mySettingEffektSound);
+    document.querySelector("#sfx").removeEventListener("animationend", sfxOff);
+    document.querySelector("#sfx").className = "off";
+}
+
+function sfxOn() {
+    console.log("sfxOn function værdi er " + mySettingEffektSound);
+    document.querySelector("#sfx").removeEventListener("animationend", sfxOn);
+    document.querySelector("#sfx").className = "on";
+}
 
 function mySettingMusicFc() {
     console.log("mySettingMusic function " + mySettingMusic);
     mySettingMusic = !mySettingMusic;
 
 
-    if (mySettingMusic == false) {
-
-        audio_start.pause();
-    } else {
+    if (mySettingMusic == true) {
         audio_start.play();
+        document.querySelector("#music").className = "off_on";
+        document.querySelector("#music").addEventListener("animationend", musicOn);
+    } else {
+        audio_start.pause();
+        document.querySelector("#music").className = "on_off";
+        document.querySelector("#music").addEventListener("animationend", musicOff);
     }
+}
 
+function musicOff() {
+    console.log("musicOff function værdi er " + mySettingEffektSound);
+    document.querySelector("#music").removeEventListener("animationend", musicOff);
+    document.querySelector("#music").className = "off";
+}
+
+function musicOn() {
+    console.log("musicOn function værdi er " + mySettingEffektSound);
+    document.querySelector("#music").removeEventListener("animationend", musicOn);
+    document.querySelector("#music").className = "on";
 }
